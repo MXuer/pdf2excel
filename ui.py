@@ -46,6 +46,9 @@ def read_one_pdf(pdf_path):
                     for each in table_a:
                         article_number_range = re.sub("\(.*?\)", '', each[0]).strip() + ' 颗粒数'
                         if re.findall('µm', article_number_range):
+                            article_number_range = article_number_range.replace('µm -', '-')
+                            if "=" not in article_number_range:
+                                article_number_range = article_number_range.replace('>', '>=')
                             output_dict[article_number_range] = each[2]
                     table_b = tables[-1]
                     output_dict['金属颗粒长度'] = table_b[1][4]
